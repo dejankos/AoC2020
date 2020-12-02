@@ -34,15 +34,15 @@ fn prepare_data(data: Vec<String>) -> Vec<(usize, usize, char, String)> {
         .map(|line| {
             let split = line
                 .split_whitespace()
-                .flat_map(|s| s.split("-"))
-                .flat_map(|s| s.split(":"))
+                .flat_map(|s| s.split('-'))
+                .flat_map(|s| s.split(':'))
                 .filter(|s| !s.is_empty())
                 .collect::<Vec<&str>>();
 
             (
                 split[0].parse().unwrap(),
                 split[1].parse().unwrap(),
-                split[2].chars().next().expect("this should be a char"),
+                split[2].chars().next().unwrap(),
                 split[3].into(),
             )
         })
