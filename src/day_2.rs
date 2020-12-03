@@ -1,4 +1,6 @@
-fn find_valid(pass: Vec<(usize, usize, char, String)>) -> usize {
+type Passwords = Vec<(usize, usize, char, String)>;
+
+fn find_valid(pass: Passwords) -> usize {
     pass.into_iter().fold(0, |acc, (min, max, c, password)| {
         let n = n_occurrences(password, c);
         if n >= min && n <= max {
@@ -13,7 +15,7 @@ fn n_occurrences(password: String, c: char) -> usize {
     password.chars().fold(0, |acc, ch| acc + (c == ch) as usize)
 }
 
-fn find_valid_part_2(pass: Vec<(usize, usize, char, String)>) -> usize {
+fn find_valid_part_2(pass: Passwords) -> usize {
     pass.into_iter().fold(0, |acc, (min, max, c, password)| {
         let (f, l) = (
             password.chars().nth(min - 1).unwrap(),
@@ -29,7 +31,7 @@ fn find_valid_part_2(pass: Vec<(usize, usize, char, String)>) -> usize {
     })
 }
 
-fn prepare_data(data: Vec<String>) -> Vec<(usize, usize, char, String)> {
+fn prepare_data(data: Vec<String>) -> Passwords {
     data.into_iter()
         .map(|line| {
             let split = line
