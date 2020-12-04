@@ -16,6 +16,17 @@ where
     parse(path, |s| s.into())
 }
 
+pub fn parse_on_blank_lines<P>(path: P) -> Vec<String>
+where
+    P: AsRef<Path>,
+{
+    let split_reg = regex::Regex::new("\n\\s*\n").unwrap();
+    split_reg
+        .split(&load_file(path))
+        .map(|l| l.replace("\n", " "))
+        .collect()
+}
+
 fn parse<T, P, F>(path: P, f: F) -> Vec<T>
 where
     P: AsRef<Path>,
