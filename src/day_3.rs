@@ -16,6 +16,7 @@ fn count_all(map: Map) -> usize {
     .product()
 }
 
+#[allow(clippy::ptr_arg)]
 fn count_trees_part_2(map: &Map, x_step: usize, y_step: usize) -> usize {
     let (mut count, mut x, mut y) = (0, 0, 0);
     loop {
