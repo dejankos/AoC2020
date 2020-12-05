@@ -2,7 +2,7 @@ use crate::data_parser::parse_lines;
 
 fn find_highest_seat_id(data: Vec<(String, String)>) -> usize {
     data.into_iter()
-        .map(|mut tup| bsp(&mut tup.0, 0, 127, 'F', 'B') * 8 + bsp(&mut tup.1, 0, 7, 'L', 'R'))
+        .map(|mut tup| bsp(&mut tup.0, 0, 127) * 8 + bsp(&mut tup.1, 0, 7))
         .max()
         .expect("should find something")
 }
@@ -10,9 +10,9 @@ fn find_highest_seat_id(data: Vec<(String, String)>) -> usize {
 fn find_my_seat(data: Vec<(String, String)>) -> usize {
     let mut seats = data
         .into_iter()
-        .map(|mut tup| bsp(&mut tup.0, 0, 127, 'F', 'B') * 8 + bsp(&mut tup.1, 0, 7, 'L', 'R'))
+        .map(|mut tup| bsp(&mut tup.0, 0, 127) * 8 + bsp(&mut tup.1, 0, 7))
         .collect::<Vec<usize>>();
-    seats.sort();
+    seats.sort_unstable();
 
     (seats[0]..=seats[seats.len() - 1])
         .into_iter()
@@ -20,22 +20,24 @@ fn find_my_seat(data: Vec<(String, String)>) -> usize {
         - seats.iter().sum::<usize>()
 }
 
-fn bsp(cmd: &mut String, low: usize, up: usize, low_cmd: char, up_cmd: char) -> usize {
+fn bsp(cmd: &mut String, low: usize, up: usize) -> usize {
     if let Some(c) = cmd.pop() {
-        if c == low_cmd {
-            if cmd.is_empty() {
-                low
-            } else {
-                bsp(cmd, low, low + ((up - low) / 2), low_cmd, up_cmd)
+        match c {
+            'F' | 'L' => {
+                if cmd.is_empty() {
+                    low
+                } else {
+                    bsp(cmd, low, low + ((up - low) / 2))
+                }
             }
-        } else if c == up_cmd {
-            if cmd.is_empty() {
-                up
-            } else {
-                bsp(cmd, 1 + low + ((up - low) / 2), up, low_cmd, up_cmd)
+            'B' | 'R' => {
+                if cmd.is_empty() {
+                    up
+                } else {
+                    bsp(cmd, 1 + low + ((up - low) / 2), up)
+                }
             }
-        } else {
-            panic!("unknown cmd")
+            _ => panic!("unknown cmd"),
         }
     } else {
         panic!("should not happen")
@@ -62,13 +64,13 @@ mod tests {
     #[test]
     fn should_calc_bsp() {
         let mut s = "FBFBBFF".chars().rev().collect::<String>();
-        assert_eq!(44, bsp(&mut s, 0, 127, 'F', 'B'))
+        assert_eq!(44, bsp(&mut s, 0, 127))
     }
 
     #[test]
     fn should_calc_bsp_2() {
         let mut s = "RLR".chars().rev().collect::<String>();
-        assert_eq!(5, bsp(&mut s, 0, 7, 'L', 'R'))
+        assert_eq!(5, bsp(&mut s, 0, 7))
     }
 
     #[test]
