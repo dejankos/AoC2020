@@ -7,6 +7,19 @@ fn find_highest_seat_id(data: Vec<(String, String)>) -> usize {
         .expect("should find something")
 }
 
+fn find_my_seat(data: Vec<(String, String)>) -> usize {
+    let mut seats = data
+        .into_iter()
+        .map(|mut tup| bsp(&mut tup.0, 0, 127, 'F', 'B') * 8 + bsp(&mut tup.1, 0, 7, 'L', 'R'))
+        .collect::<Vec<usize>>();
+    seats.sort();
+
+    (seats[0]..=seats[seats.len() - 1])
+        .into_iter()
+        .sum::<usize>()
+        - seats.iter().sum::<usize>()
+}
+
 fn bsp(cmd: &mut String, low: usize, up: usize, low_cmd: char, up_cmd: char) -> usize {
     if let Some(c) = cmd.pop() {
         if c == low_cmd {
@@ -61,5 +74,10 @@ mod tests {
     #[test]
     fn should_find_highest_seat_id_part_1() {
         assert_eq!(980, find_highest_seat_id(prepare_data()));
+    }
+
+    #[test]
+    fn should_find_my_seat() {
+        assert_eq!(607, find_my_seat(prepare_data()));
     }
 }
