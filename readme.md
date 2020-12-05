@@ -1,3 +1,13 @@
+# Advent of code 2020 in Rust
+
+### Days 
+* [Day 1: Report Repair](/src/day_1.rs)  
+* [Day 2: Password Philosophy](/src/day_2.rs)
+* [Day 3: Toboggan Trajectory](/src/day_3.rs)
+* [Day 4: Passport Processing](/src/day_4.rs)
+* [Day 5: Binary Boarding](/src/day_5.rs)
+
+
 ```text
        _____________,--,
       | | | | | | |/ .-.\   HANG IN THERE
@@ -15,7 +25,7 @@
        ||___|__|__|__|__;\_)-'`\   {_.-;
        |__|__|__|__|__|/` (`\__/     '-'
        |_|___|__|__/`      |
--jgs---|__|___|__/`         \-------------------
+-------|__|___|__/`         \-------------------
 -.__.-.|___|___;`            |.__.-.__.-.__.-.__
   |     |     ||             |  |     |     |
 -' '---' '---' \             /-' '---' '---' '--
