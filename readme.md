@@ -6,6 +6,7 @@
 * [Day 3: Toboggan Trajectory](/src/day_3.rs)
 * [Day 4: Passport Processing](/src/day_4.rs)
 * [Day 5: Binary Boarding](/src/day_5.rs)
+* [Day 6: Custom Customs](/src/day_6.rs)
 
 
 ```text
