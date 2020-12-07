@@ -11,7 +11,7 @@ fn sum_all_unique(a: Vec<Answers>) -> usize {
 }
 
 fn unique_count(mut a: Answers) -> usize {
-    let last= a.pop().unwrap();
+    let last = a.pop().unwrap();
     a.into_iter()
         .fold(last, |acc, n| acc.intersection(&n).copied().collect())
         .len()
