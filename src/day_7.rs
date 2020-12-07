@@ -1,8 +1,8 @@
 use std::collections::HashMap;
 
-use petgraph::Graph;
 use petgraph::stable_graph::NodeIndex;
 use petgraph::visit::Dfs;
+use petgraph::Graph;
 
 #[derive(Debug, Eq, PartialEq)]
 struct Color {
@@ -41,6 +41,35 @@ fn solve(data: Vec<Vec<Color>>, node_name: &str) -> usize {
     }
 
     count
+}
+
+fn solve_part_2(data: Vec<Vec<Color>>, node_name: &str) -> usize {
+    let mut map: HashMap<String, Vec<Color>> = HashMap::new();
+
+    for mut v in data.into_iter() {
+        let f = v.remove(0);
+        map.insert(f.name, v);
+    }
+
+    let mut r = 0;
+    for i in map[node_name].iter() {
+        r += i.n + (i.n * find_all(i.name.as_str(), &map))
+    }
+
+    r
+}
+
+fn find_all(name: &str, map: &HashMap<String, Vec<Color>>) -> usize {
+    if !map.contains_key(name) {
+        0
+    } else {
+        let v = map.get(name).unwrap();
+        let mut n = 0;
+        for c in v.iter() {
+            n += c.n + c.n * find_all(c.name.as_str(), map);
+        }
+        n
+    }
 }
 
 fn prepare_data(data: Vec<String>) -> Vec<Vec<Color>> {
@@ -90,5 +119,11 @@ mod tests {
     fn should_solve() {
         let data = prepare_data(parse_lines("input/day_7_data.txt"));
         assert_eq!(205, solve(data, "shinygold"));
+    }
+
+    #[test]
+    fn should_solve_part_2() {
+        let p = prepare_data(parse_lines("input/day_7_data.txt"));
+        assert_eq!(80902, solve_part_2(p, "shinygold".into()));
     }
 }
