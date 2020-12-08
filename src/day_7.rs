@@ -29,7 +29,7 @@ fn find_all_paths(from: &str, to: &Color, map: &HashMap<String, Vec<Color>>) -> 
         } else {
             v.iter()
                 .map(|c| find_all_paths(c.name.as_str(), to, map))
-                .any(|b| b == true)
+                .any(|b| b)
         }
     }
 }
