@@ -43,12 +43,10 @@ fn find_all(name: &str, map: &HashMap<String, Vec<Color>>) -> usize {
     if !map.contains_key(name) {
         0
     } else {
-        let v = map.get(name).unwrap();
-        let mut n = 0;
-        for c in v.iter() {
-            n += c.n + c.n * find_all(c.name.as_str(), map);
-        }
-        n
+        map.get(name)
+            .unwrap()
+            .iter()
+            .fold(0, |acc, c| acc + c.n + c.n * find_all(c.name.as_str(), map))
     }
 }
 
