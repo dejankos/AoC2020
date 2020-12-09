@@ -9,6 +9,7 @@
 * [Day 6: Custom Customs](/src/day_6.rs)
 * [Day 7: Handy Haversacks](/src/day_7.rs)
 * [Day 8: Handheld Halting](/src/day_8.rs)
+* [Day 9: Encoding Error](/src/day_9.rs)
 
 
 ```text
