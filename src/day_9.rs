@@ -1,4 +1,5 @@
 use itertools::Itertools;
+use std::cmp::Ordering;
 
 fn solve(input: Vec<usize>, preamble: usize) -> usize {
     input
@@ -20,10 +21,9 @@ fn is_valid(slice: &[usize], n: usize) -> bool {
 
 fn find_contiguous_set(input: Vec<usize>, sum: usize) -> usize {
     let mut res = 0;
-    input.iter().copied().enumerate().any(|(i, n)| {
-        let mut f = find_subset(&input[i + 1..input.len()], sum, n);
+    input.iter().copied().enumerate().any(|(i, _)| {
+        let f = find_subset(&input[i..input.len()], sum);
         if !f.is_empty() {
-            f.push(n);
             res = f.iter().max().unwrap() + f.iter().min().unwrap();
             true
         } else {
@@ -34,14 +34,14 @@ fn find_contiguous_set(input: Vec<usize>, sum: usize) -> usize {
     res
 }
 
-fn find_subset(set: &[usize], sum: usize, start: usize) -> Vec<usize> {
-    let mut s = start;
-    for (i, n) in set.into_iter().enumerate() {
+fn find_subset(set: &[usize], sum: usize) -> Vec<usize> {
+    let mut s = 0;
+    for (i, n) in set.iter().enumerate() {
         s += n;
-        if s == sum {
-            return set[0..=i].to_vec();
-        } else if s > sum {
-            return vec![];
+        match (s).cmp(&sum) {
+            Ordering::Equal => return set[0..=i].to_vec(),
+            Ordering::Greater => return vec![],
+            _ => {}
         }
     }
 
