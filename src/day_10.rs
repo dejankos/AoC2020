@@ -72,6 +72,9 @@ mod tests {
 
     #[test]
     fn should_solve_part_2() {
-        assert_eq!(198428693313536, solve_part_2(parse_file("input/day_10_data.txt")));
+        assert_eq!(
+            198428693313536,
+            solve_part_2(parse_file("input/day_10_data.txt"))
+        );
     }
 }
