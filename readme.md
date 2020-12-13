@@ -12,6 +12,7 @@
 * [Day 9: Encoding Error](/src/day_9.rs)
 * [Day 10: Adapter Array](/src/day_10.rs)
 * [Day 11: Seating System](/src/day_11.rs)
+* [Day 12: Rain Risk](/src/day_12.rs)
 
 
 ```text
