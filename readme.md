@@ -13,6 +13,7 @@
 * [Day 10: Adapter Array](/src/day_10.rs)
 * [Day 11: Seating System](/src/day_11.rs)
 * [Day 12: Rain Risk](/src/day_12.rs)
+* [Day 13: Shuttle Search](/src/day_13.rs)
 
 
 ```text

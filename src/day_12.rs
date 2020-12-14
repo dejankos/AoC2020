@@ -42,23 +42,20 @@ fn solve(inst: Vec<(char, isize)>) -> usize {
     (p.0.abs() + p.1.abs()) as usize
 }
 
-
 fn solve_2(inst: Vec<(char, isize)>) -> usize {
     let (mut p, _d, mut wp) = ((0, 0), Direction::E, (10, 1));
 
     inst.into_iter().for_each(|(ins, v)| match ins {
-        'F' => {
-            p = (p.0 + v * wp.0, p.1 + v * wp.1)
-        }
+        'F' => p = (p.0 + v * wp.0, p.1 + v * wp.1),
         'L' => {
-           for _ in 0..v/90 {
-               let temp = wp.1;
-               wp.1 = wp.0;
-               wp.0 = -temp;
-           }
+            for _ in 0..v / 90 {
+                let temp = wp.1;
+                wp.1 = wp.0;
+                wp.0 = -temp;
+            }
         }
         'R' => {
-            for _ in 0..v/90 {
+            for _ in 0..v / 90 {
                 let temp = wp.0;
                 wp.0 = wp.1;
                 wp.1 = -temp;
@@ -82,7 +79,6 @@ fn move_(d: &Direction, p: Position, v: isize) -> Position {
         Direction::S => (p.0, p.1 - v),
     }
 }
-
 
 fn prepare_data(data: Vec<String>) -> Vec<(char, isize)> {
     data.into_iter()
